@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {}
   },
-  plugins: [require('daisyui'),require('tailwindcss-scrollbar')],
+  plugins: [require('daisyui'),require('tailwind-scrollbar')],
   daisyui:{
     logs:false,
     themes:['wireframe','dim']
