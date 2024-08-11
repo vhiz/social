@@ -1,4 +1,3 @@
-
 export default function Ad() {
   return (
     <div className="w-full p-2 text-sm shadow-md">
@@ -13,6 +12,8 @@ export default function Ad() {
         sit iste voluptate fugit minus dolor quas? Quod dolor ut perferendis
         ipsam error, exercitationem ea iusto quos maiores, itaque reiciendis?
       </div>
+      <button className="btn btn-sm mt-2 w-full text-sm font-light opacity-70">Learn more</button>
+      <div className="divider opacity-0"></div>
     </div>
   )
 }

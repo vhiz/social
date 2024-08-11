@@ -1,6 +1,10 @@
+import LoginForm from '../components/LoginForm'
+import Auth from '../layout/Auth'
 
 export default function Login() {
   return (
-    <div>Login</div>
+    <Auth header={'Login'}>
+      <LoginForm />
+    </Auth>
   )
 }
