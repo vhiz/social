@@ -6,9 +6,9 @@ import RootLayout from '../layout/RootLayout'
 export default function Home() {
   return (
     <RootLayout header={'Home'}>
-      <Stories />
-      <AddPost />
-      <Feed />
+        <Stories />
+        <AddPost />
+        <Feed />
     </RootLayout>
   )
 }

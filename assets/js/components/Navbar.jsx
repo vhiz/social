@@ -6,7 +6,7 @@ import { Link } from '@inertiajs/react'
 export default function Navbar() {
   const user = null
   return (
-    <div className="navbar bg-base-100">
+  <div className="navbar bg-base-100 shadow-md">
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Timer</a>
       </div>
@@ -15,7 +15,7 @@ export default function Navbar() {
           <GoBell />
         </div>
         <Toggle />
-        <div className="form-control">
+        <div className="form-control hidden md:flex">
           <input
             type="text"
             placeholder="Search"
