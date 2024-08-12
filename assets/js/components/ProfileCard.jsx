@@ -2,7 +2,6 @@ import { Link, usePage } from '@inertiajs/react'
 
 export default function ProfileCard() {
   const { currentUser } = usePage().props
-  console.log(currentUser)
   return (
     <div className="w-full rounded-box p-2 shadow-md">
       <div className="relative h-24 w-full rounded-box">
@@ -26,7 +25,7 @@ export default function ProfileCard() {
                 <img src={currentUser.avatar} />
               </div>
             ) : (
-              <div className="w-16 rounded-full bg-accent text-accent-content">
+              <div className="w-16 rounded-full bg-accent ring ring-accent ring-offset-2 ring-offset-base-100 text-accent-content">
                 <span className="text-2xl capitalize">
                   {currentUser.username.split('')[0]}
                 </span>

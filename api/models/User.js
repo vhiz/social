@@ -27,6 +27,9 @@ module.exports = {
     avatar: {
       type: 'string',
     },
+    cover: {
+      type: 'string',
+    },
     firstName: {
       type: 'string',
     },

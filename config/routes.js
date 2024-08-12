@@ -21,7 +21,7 @@ module.exports.routes = {
   'GET /': 'home/index',
 
   //profile
-  'GET /profile/:id?': 'profile/index',
+  'GET /profile/:username?': 'profile/index',
 
   //auth
   'GET /login': 'auth/login',

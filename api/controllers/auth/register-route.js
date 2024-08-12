@@ -48,7 +48,7 @@ module.exports = {
         },
       }
     }
-    const usernameExist = await User.findOne({ email: username.toLowerCase() })
+    const usernameExist = await User.findOne({ username: username.toLowerCase() })
     if (usernameExist) {
       throw {
         invalid: {

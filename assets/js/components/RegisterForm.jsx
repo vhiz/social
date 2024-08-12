@@ -23,7 +23,7 @@ export default function RegisterForm(props) {
         Welcome! Please fill in the details to get started.
       </h3>
       {page?.register && !processing && (
-        <div className="my-2 text-error">{page.register}</div>
+        <div className="my-2 text-error text-xs">{page.register}</div>
       )}
       <Social />
       <div className="divider opacity-70">or</div>

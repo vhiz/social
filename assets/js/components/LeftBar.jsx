@@ -1,12 +1,15 @@
+import { usePage } from '@inertiajs/react'
 import Ad from './Ad'
 import ProfileCard from './ProfileCard'
 
-export default function LeftBar({ userId }) {
+export default function LeftBar() {
+  const { currentUser, user } = usePage().props
+  let show = !user || currentUser.id === user?.id
   return (
     <div className="fixed top-[4.5rem] h-[calc(100vh-4rem)] w-[20%]">
       <div className="flex h-full w-full flex-col items-center gap-6 overflow-y-scroll">
         {/* Profile */}
-        {!userId && <ProfileCard />}
+        {show && <ProfileCard />}
         {/* menu */}
         <ul className="menu w-full rounded-md shadow-md">
           <li>
