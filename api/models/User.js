@@ -14,6 +14,11 @@ module.exports = {
       required: true,
       unique: true,
     },
+    email: {
+      type: 'string',
+      required: true,
+      unique: true,
+    },
     password: {
       type: 'string',
       required: true,
@@ -44,7 +49,7 @@ module.exports = {
       type: 'string',
     },
     posts: {
-      collection: 'posts',
+      collection: 'post',
       via: 'user',
     },
     comments: {

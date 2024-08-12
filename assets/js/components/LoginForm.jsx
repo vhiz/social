@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    // post('/auth/login')
+    post('/login')
   }
   return (
     <div className="flex max-h-fit min-h-fit flex-col items-center gap-2 rounded-md bg-base-200 p-10">

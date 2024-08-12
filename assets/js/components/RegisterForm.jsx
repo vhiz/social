@@ -8,12 +8,13 @@ export default function RegisterForm(props) {
   const [see, setSee] = useState(false)
   const { data, setData, processing, errors, post } = useForm({
     email: '',
+    username: '',
     password: '',
     confirmPassword: '',
   })
   function handleSubmit(e) {
     e.preventDefault()
-    // post('/auth/register')
+    post('/register')
   }
   return (
     <div className="flex max-h-fit min-h-fit flex-col items-center gap-2 rounded-md bg-base-200 p-8">
@@ -29,6 +30,21 @@ export default function RegisterForm(props) {
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-2">
         <label className="form-control w-full max-w-xs">
           <div className="label">
+            <span className="label-text text-sm font-semibold">Username</span>
+          </div>
+          <input
+            type="text"
+            value={data.username}
+            onChange={(e) => setData('username', e.target.value)}
+            placeholder="Type here"
+            className="input input-sm input-bordered w-full max-w-xs"
+          />
+          {errors.username && (
+            <span className="text-sm text-error">{errors.username}</span>
+          )}
+        </label>
+        <label className="form-control w-full max-w-xs">
+          <div className="label">
             <span className="label-text text-sm font-semibold">Email</span>
           </div>
           <input
@@ -42,6 +58,7 @@ export default function RegisterForm(props) {
             <span className="text-sm text-error">{errors.email}</span>
           )}
         </label>
+
         <label className="form-control w-full max-w-xs">
           <div className="label">
             <span className="label-text text-sm font-semibold">Password</span>

@@ -26,7 +26,10 @@ module.exports.routes = {
   //auth
   'GET /login': 'auth/login',
   'GET /register': 'auth/register',
-  
+  'POST /login': 'auth/login-route',
+  'POST /register': 'auth/register-route',
+  'DELETE /logout': 'auth/logout',
+
   //settings
   'GET /setting': 'setting/index',
 }

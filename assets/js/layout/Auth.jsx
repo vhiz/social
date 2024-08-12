@@ -8,7 +8,7 @@ export default function Auth({ children, header }) {
         <title>{header}</title>
       </Head>
       <Navbar />
-      <div className="mt-16 flex h-[calc(100vh-4rem)] w-full items-center justify-center">
+      <div className="mt-16 flex items-center justify-center">
         {children}
       </div>
     </div>
