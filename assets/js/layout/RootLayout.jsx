@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar'
 import { Head } from '@inertiajs/react'
 import LeftBar from '../components/Leftbar'
 import RightBar from '../components/RightBar'
+import { Toaster } from 'react-hot-toast'
 
 export default function RootLayout({ children, header }) {
   return (
@@ -22,6 +23,7 @@ export default function RootLayout({ children, header }) {
           <RightBar />
         </div>
       </div>
+      <Toaster />
     </div>
   )
 }

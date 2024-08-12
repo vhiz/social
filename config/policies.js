@@ -21,4 +21,5 @@ module.exports.policies = {
   'auth/logout': 'is-auth',
   'profile/*': 'is-auth',
   'setting/*': 'is-auth',
+  'user/*': 'is-auth',
 }

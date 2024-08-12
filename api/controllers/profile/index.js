@@ -35,15 +35,18 @@ module.exports = {
         blocker: user.id,
         blocked: this.req.session.userId,
       })
+      let blockedUser = await Block.findOne({
+        blocked: user.id,
+        blocker: this.req.session.userId,
+      })
       if (isBlocked) {
         sails.log('You are blocked')
-
         throw 'notFound'
       }
       return {
         page: 'profile',
         props: {
-          user: user,
+          user: { ...user, blockedUser: blockedUser ? true : false },
         },
       }
     } else {

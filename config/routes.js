@@ -30,6 +30,10 @@ module.exports.routes = {
   'POST /register': 'auth/register-route',
   'DELETE /logout': 'auth/logout',
 
+  //user
+  'POST /user/block': 'user/block-user',
+  'POST /user/follow': 'user/follow-user',
+
   //settings
   'GET /setting': 'setting/index',
 }
