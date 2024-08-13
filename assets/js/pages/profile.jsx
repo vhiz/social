@@ -1,5 +1,8 @@
+import { Head } from '@inertiajs/react'
 import Feed from '../components/Feed'
 import RootLayout from '../layout/RootLayout'
+import UserInfoCard from '../components/UserInfoCard'
+import UserMediaCard from '../components/UserMediaCard'
 
 export default function Profile({ user }) {
   return (
@@ -10,6 +13,9 @@ export default function Profile({ user }) {
           : user.username
       }
     >
+      <Head>
+        <meta name="description" content={user.description} />
+      </Head>
       {/* profile */}
       <div className="w-full rounded-md">
         <div className="relative h-52 w-full rounded-t-md">
@@ -57,6 +63,10 @@ export default function Profile({ user }) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="md:hidden mt-2">
+        <UserInfoCard />
+        <UserMediaCard />
       </div>
       <Feed />
     </RootLayout>

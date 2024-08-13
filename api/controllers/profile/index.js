@@ -39,6 +39,14 @@ module.exports = {
         blocked: user.id,
         blocker: this.req.session.userId,
       })
+      let requestSent = await FollowRequest.findOne({
+        sender: this.req.session.userId,
+        receiver: user.id,
+      })
+      let isFollowing = await Follower.findOne({
+        follower: this.req.session.userId,
+        following: user.id,
+      })
       if (isBlocked) {
         sails.log('You are blocked')
         throw 'notFound'
@@ -46,7 +54,12 @@ module.exports = {
       return {
         page: 'profile',
         props: {
-          user: { ...user, blockedUser: blockedUser ? true : false },
+          user: {
+            ...user,
+            blockedUser: blockedUser ? true : false,
+            requestSent: requestSent ? true : false,
+            isFollowing: isFollowing ? true : false,
+          },
         },
       }
     } else {

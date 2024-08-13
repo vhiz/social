@@ -33,6 +33,12 @@ module.exports.routes = {
   //user
   'POST /user/block': 'user/block-user',
   'POST /user/follow': 'user/follow-user',
+  'GET /user/friendRequests': 'user/get-friend-request',
+  'POST /user/accept-request': 'user/accept-request',
+
+  //posts
+  'POST /post': 'posts/add-post',
+  'GET /post': 'posts/get-posts',
 
   //settings
   'GET /setting': 'setting/index',
