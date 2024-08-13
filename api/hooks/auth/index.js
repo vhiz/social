@@ -32,8 +32,15 @@ module.exports = function defineAuthHook(sails) {
                 delete req.session.userId
                 return res.redirect('/login')
               }
-
-              sails.inertia.share('currentUser', currentUser)
+              const followers = await Promise.all(
+                currentUser.followers.map(async (following) => {
+                  const follower = await User.findOne({
+                    id: following.following,
+                  })
+                  return follower
+                })
+              )
+              sails.inertia.share('currentUser', { ...currentUser, followers })
               res.setHeader('Cache-Control', 'no-cache, no-store')
               return next()
             } else {
