@@ -36,6 +36,7 @@ module.exports.routes = {
   'POST /user/follow': 'user/follow-user',
   'GET /user/friendRequests': 'user/get-friend-request',
   'POST /user/accept-request': 'user/accept-request',
+  'PATCH /user/update': 'user/update',
 
   //posts
   'POST /post': 'posts/add-post',

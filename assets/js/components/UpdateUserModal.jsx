@@ -1,16 +1,15 @@
-import React from 'react'
-import FriendRequest from './FriendRequest'
+import UpdateUser from './UpdateUser'
 
-export default function FriendRequestModal() {
+export default function UpdateUserModal() {
   return (
-    <dialog id="friendRequestModal" className="modal">
+    <dialog id="updateUser" className="modal">
       <div className="modal-box max-w-3xl">
         <form method="dialog">
           <button className="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
             ✕
           </button>
         </form>
-        <FriendRequest modal />
+        <UpdateUser />
       </div>
       <form method="dialog" className="modal-backdrop">
         <button>close</button>

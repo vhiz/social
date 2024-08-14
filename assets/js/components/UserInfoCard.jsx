@@ -48,7 +48,12 @@ export default function UserInfoCard() {
       <div className="flex w-full items-center justify-between">
         <span className="text-sm opacity-70">User Information</span>
         {currentUser.id === user.id ? (
-          <div className="link-hover link link-secondary text-xs">update</div>
+          <div
+            className="link-hover link link-secondary text-xs"
+            onClick={() => document.getElementById('updateUser').showModal()}
+          >
+            update
+          </div>
         ) : (
           <span className="link-hover link link-secondary text-xs">
             see all
