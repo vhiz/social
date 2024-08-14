@@ -53,12 +53,12 @@ export default function Profile({ user }) {
             </div>
             <div className="divider divider-horizontal"></div>
             <div className="flex flex-col items-center gap-1">
-              <strong>{user.followers.length}</strong>
+              <strong>{user.followings.length}</strong>
               <span className="opacity-70">Followers</span>
             </div>
             <div className="divider divider-horizontal"></div>
             <div className="flex flex-col items-center gap-1">
-              <strong>{user.followings.length}</strong>
+              <strong>{user.followers.length}</strong>
               <span className="opacity-70">Following</span>
             </div>
           </div>

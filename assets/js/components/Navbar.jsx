@@ -7,8 +7,6 @@ import { IoSearch } from 'react-icons/io5'
 export default function Navbar() {
   const { currentUser } = usePage().props
 
-
-
   function searchUser(e) {
     e.preventDefault()
     const query = e.target.query.value
@@ -27,11 +25,17 @@ export default function Navbar() {
         <div className="btn btn-circle btn-ghost btn-sm hidden md:inline-flex">
           <GoBell />
         </div>
-        <Link href='/search' className="btn btn-circle btn-ghost btn-sm md:hidden">
+        <Link
+          href="/search"
+          className="btn btn-circle btn-ghost btn-sm md:hidden"
+        >
           <IoSearch />
-        </Link >
+        </Link>
         <Toggle />
-        <form onSubmit={searchUser} className="form-control hidden md:flex flex-col">
+        <form
+          onSubmit={searchUser}
+          className="form-control hidden flex-col md:flex"
+        >
           <input
             name="query"
             type="text"
@@ -72,6 +76,15 @@ export default function Navbar() {
               </li>
               <li className="lg:hidden">
                 <a>Friends </a>
+              </li>
+              <li className="md:hidden">
+                <a
+                  onClick={() =>
+                    document.getElementById('friendRequestModal').showModal()
+                  }
+                >
+                  Friend request
+                </a>
               </li>
               <li>
                 <a>Settings</a>

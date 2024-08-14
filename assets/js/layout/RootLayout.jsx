@@ -4,6 +4,7 @@ import { Head } from '@inertiajs/react'
 import LeftBar from '../components/Leftbar'
 import RightBar from '../components/RightBar'
 import { Toaster } from 'react-hot-toast'
+import FriendRequestModal from '../components/FriendRequestModal'
 
 export default function RootLayout({ children, header }) {
   return (
@@ -24,6 +25,7 @@ export default function RootLayout({ children, header }) {
         </div>
       </div>
       <Toaster />
+      <FriendRequestModal />
     </div>
   )
 }

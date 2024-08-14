@@ -17,7 +17,7 @@ export default function RightBar() {
             <UserMediaCard />
           </>
         )}
-        <FriendRequest />
+        <FriendRequest modal={false} />
         <Birthday />
         <Ad />
       </div>
