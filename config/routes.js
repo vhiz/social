@@ -19,6 +19,7 @@ module.exports.routes = {
    *                                                                          *
    ***************************************************************************/
   'GET /': 'home/index',
+  'GET /search': 'home/search',
 
   //profile
   'GET /profile/:username?': 'profile/index',

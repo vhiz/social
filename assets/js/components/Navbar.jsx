@@ -1,10 +1,21 @@
 import React from 'react'
 import Toggle from './Toggle'
 import { GoBell } from 'react-icons/go'
-import { Link, usePage } from '@inertiajs/react'
+import { Link, router, usePage } from '@inertiajs/react'
+import { IoSearch } from 'react-icons/io5'
 
 export default function Navbar() {
   const { currentUser } = usePage().props
+
+
+
+  function searchUser(e) {
+    e.preventDefault()
+    const query = e.target.query.value
+    if (!query) return
+    router.get(`/search?query=${query}`)
+    e.target.query.value = ''
+  }
   return (
     <div className="navbar fixed top-0 z-50 bg-base-100 shadow-md">
       <div className="flex-1">
@@ -16,14 +27,18 @@ export default function Navbar() {
         <div className="btn btn-circle btn-ghost btn-sm hidden md:inline-flex">
           <GoBell />
         </div>
+        <Link href='/search' className="btn btn-circle btn-ghost btn-sm md:hidden">
+          <IoSearch />
+        </Link >
         <Toggle />
-        <div className="form-control hidden md:flex">
+        <form onSubmit={searchUser} className="form-control hidden md:flex flex-col">
           <input
+            name="query"
             type="text"
             placeholder="Search"
             className="input input-sm input-bordered w-24 md:w-auto"
           />
-        </div>
+        </form>
         {currentUser ? (
           <div className="dropdown dropdown-end">
             <div
@@ -39,7 +54,9 @@ export default function Navbar() {
                 </div>
               ) : (
                 <div className="w-10 rounded-full bg-accent text-accent-content">
-                  <span className="text-2xl capitalize">{currentUser.username.split('')[0]}</span>
+                  <span className="text-2xl capitalize">
+                    {currentUser.username.split('')[0]}
+                  </span>
                 </div>
               )}
             </div>

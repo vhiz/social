@@ -21,7 +21,7 @@ module.exports = function defineAuthHook(sails) {
             if (req.session.userId) {
               const currentUser = await User.findOne({
                 id: req.session.userId,
-              }).populate('followers')
+              }).populate('followings')
 
               if (!currentUser) {
                 sails.log.warn(
@@ -32,15 +32,15 @@ module.exports = function defineAuthHook(sails) {
                 delete req.session.userId
                 return res.redirect('/login')
               }
-              const followers = await Promise.all(
-                currentUser.followers.map(async (following) => {
+              const followings = await Promise.all(
+                currentUser.followings.map(async (following) => {
                   const follower = await User.findOne({
-                    id: following.following,
+                    id: following.follower,
                   })
                   return follower
                 })
               )
-              sails.inertia.share('currentUser', { ...currentUser, followers })
+              sails.inertia.share('currentUser', { ...currentUser, followings })
               res.setHeader('Cache-Control', 'no-cache, no-store')
               return next()
             } else {

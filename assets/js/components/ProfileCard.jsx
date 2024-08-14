@@ -2,7 +2,6 @@ import { Link, usePage } from '@inertiajs/react'
 
 export default function ProfileCard() {
   const { currentUser } = usePage().props
-  console.log(currentUser)
   return (
     <div className="w-full rounded-box p-2 shadow-md">
       <div className="relative h-24 w-full rounded-box">
@@ -41,10 +40,10 @@ export default function ProfileCard() {
             ? `${currentUser.firstName}  ${currentUser.lastName}`
             : `@${currentUser.username}`}
         </span>
-        {currentUser.followers.length > 0 && (
+        {currentUser.followings.length > 0 && (
           <div className="flex items-center gap-2">
             <div className="avatar-group -space-x-6 rtl:space-x-reverse">
-              {currentUser.followers
+              {currentUser.followings
               .slice(0,5)
               .map((user) => (
                 <div
@@ -67,7 +66,7 @@ export default function ProfileCard() {
             </div>
 
             <span className="text-sm opacity-70">
-              {currentUser.followers.length}+ followers
+              {currentUser.followings.length}+ followers
             </span>
           </div>
         )}
