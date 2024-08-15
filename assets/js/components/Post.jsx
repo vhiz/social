@@ -6,22 +6,37 @@ import { BiCommentDetail } from 'react-icons/bi'
 import { CiShare2 } from 'react-icons/ci'
 import { useState } from 'react'
 import Comments from './Comments'
-export default function Post() {
+import moment from 'moment/moment'
+import { Link } from '@inertiajs/react'
+export default function Post({ post }) {
   const [like, setLike] = useState(false)
   const [openComments, setOpenComments] = useState(false)
-
+  console.log(post)
   return (
     <div className="w-full rounded-md p-2 shadow-md">
       {/* //user */}
       <div className="flex">
-        <div className="flex flex-1 items-center gap-2">
-          <div className="avatar">
-            <div className="w-10 rounded-full">
-              <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-            </div>
+        <Link href={`/profile/${post.user.username}`} className="flex flex-1 items-center gap-4">
+          <div className={`avatar ${post.user.avatar ? '' : 'placeholder'}`}>
+            {post.user.avatar ? (
+              <div className="w-10 rounded-full ring ring-accent ring-offset-2 ring-offset-base-100">
+                <img src={post.user.avatar} />
+              </div>
+            ) : (
+              <div className="w-10 rounded-full bg-accent text-accent-content ring ring-accent ring-offset-2 ring-offset-base-100">
+                <span className="text-2xl capitalize">
+                  {post.user.username.split('')[0]}
+                </span>
+              </div>
+            )}
           </div>
-          <span>Olivia Moore</span>
-        </div>
+          <div className="flex flex-col">
+            <span>{`${post.user.firstName} ${post.user.lastName} `}</span>
+            <time datetime="" className="text-xs opacity-60">
+              {moment(post.createdAt).fromNow()}
+            </time>
+          </div>
+        </Link>
         <div className="flex-none">
           <div className="dropdown dropdown-end">
             <div
@@ -51,21 +66,15 @@ export default function Post() {
       {/* //Post */}
       <div className="mt-3">
         <div className="prose text-sm">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. At dolores
-            consequatur hic nam molestias eum aut, quasi quibusdam velit.
-            Incidunt corrupti sapiente voluptatem possimus hic corporis nisi
-            veniam officia animi. Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Quos velit saepe commodi, molestiae magni officia
-            possimus tempore ex asperiores aspernatur explicabo optio quod alias
-            magnam in laborum? Error, natus nobis!
-          </p>
+          <p>{post?.desc}</p>
         </div>
-        <div className="avatar mt-3 w-full">
-          <div className="max-h-96 w-full rounded bg-base-200">
-            <img src="https://images.unsplash.com/photo-1721332149346-00e39ce5c24f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D" />
+        {post.img && (
+          <div className="avatar mt-3 w-full">
+            <div className="max-h-96 w-full rounded bg-base-200">
+              <img src={post.img} />
+            </div>
           </div>
-        </div>
+        )}
         <div className="mt-3 flex items-center gap-2 md:gap-5">
           <div className="flex items-center">
             <label className="btn btn-circle btn-ghost swap btn-sm">
@@ -81,7 +90,7 @@ export default function Post() {
                 <BiLike />
               </div>
             </label>
-            <div className="divider divider-horizontal hidden md:flex" /> 122
+            <div className="divider divider-horizontal hidden md:flex" /> {post.likes.length}
           </div>
           <div className="flex items-center">
             <div
@@ -90,14 +99,15 @@ export default function Post() {
             >
               <BiCommentDetail />
             </div>
-            <div className="divider divider-horizontal hidden md:flex" /> 122
+            <div className="divider divider-horizontal hidden md:flex" />
+             {post.comments.length}
           </div>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <div className="btn btn-circle btn-ghost btn-sm">
               <CiShare2 />
             </div>
             <div className="divider divider-horizontal hidden md:flex" /> 122
-          </div>
+          </div> */}
         </div>
       </div>
       {openComments && <div className="divider" />}

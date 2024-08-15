@@ -71,7 +71,7 @@ export default function Profile({ user }) {
         <UserInfoCard />
         <UserMediaCard />
       </div>
-      <Feed />
+      <Feed username={user.username}/>
     </RootLayout>
   )
 }
