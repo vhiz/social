@@ -1,11 +1,20 @@
 import { useForm, usePage } from '@inertiajs/react'
-import { useState } from 'react'
-import { FaEye, FaEyeSlash } from 'react-icons/fa6'
+import { useEffect, useState } from 'react'
+import { FaCircleCheck, FaEye, FaEyeSlash } from 'react-icons/fa6'
 import { FcAddImage } from 'react-icons/fc'
+import upload from '../lib/upload'
 export default function UpdateUser() {
   const [see, setSee] = useState(false)
   const { currentUser } = usePage().props
-
+  const [imagesObj, setImagesObj] = useState({
+    cover: null,
+    avatar: null,
+  })
+  const [uploading, setUploading] = useState(false)
+  const [uploaded, setUploaded] = useState({
+    avatar: false,
+    cover: false,
+  })
   //normal form
   //   async function handleUpdate(e) {
   //     e.preventDefault()
@@ -30,14 +39,45 @@ export default function UpdateUser() {
     work: '',
     website: '',
   })
-  function handleUpdate(e) {
+
+  async function handleUpdate(e) {
     e.preventDefault()
-    patch('/user/update')
-    if (Object.keys(errors).length === 0) {
-      reset()
-      document.getElementById('updateUser').close()
+
+    patch('/user/update', {
+      preserveScroll: true,
+      onSuccess: () => {
+        reset()
+        document.getElementById('updateUser').close()
+        setUploaded({ avatar: false, cover: true })
+      },
+    })
+  }
+  function handleImgChange(e) {
+    const { files, name } = e.target
+    setImagesObj((prev) => ({
+      ...prev,
+      [name]: { file: files[0], url: URL.createObjectURL(files[0]) },
+    }))
+  }
+  async function handleAvatar() {
+    if (imagesObj.avatar && !uploaded.avatar) {
+      setUploading(true)
+      const avatarUrl = await upload(imagesObj.avatar.file)
+      setData('avatar', avatarUrl)
+      setUploading(false)
+      setUploaded((prev) => ({ ...prev, avatar: true }))
     }
   }
+  async function handleCover() {
+    if (imagesObj.cover && !uploaded.cover) {
+      setUploading(true)
+      const coverUrl = await upload(imagesObj.cover.file)
+      setData('cover', coverUrl)
+      setUploading(false)
+      setUploaded((prev) => ({ ...prev, cover: true }))
+    }
+  }
+
   return (
     <div className="w-full">
       <span className="font-semibold opacity-70">Update Information</span>
@@ -97,33 +137,130 @@ export default function UpdateUser() {
           </label>
           <ErrorMessage error={errors.password} />
         </label>
+
         <label className="form-control w-full">
           <div className="label">
             <span className="label-text">Profile Picture</span>
           </div>
           <label>
-            <input type="file" hidden />
+            <input
+              type="file"
+              hidden
+              name="avatar"
+              accept="image/*"
+              multiple={false}
+              onChange={handleImgChange}
+            />
             <div
               className="tooltip tooltip-right"
               data-tip="Add profile picture"
             >
-              <FcAddImage className="cursor-pointer text-4xl" />
+              <div className="flex items-center gap-2">
+                <FcAddImage className="cursor-pointer text-4xl" />
+              </div>
             </div>
           </label>
           <ErrorMessage error={errors.avatar} />
         </label>
+        <div className="flex items-center gap-2">
+          <div
+            className={`btn w-max ${
+              uploading || uploaded.avatar ? 'btn-disabled' : ''
+            }`}
+            onClick={handleAvatar}
+          >
+            {uploading ? (
+              <div className="loading"></div>
+            ) : uploaded.avatar ? (
+              'Uploaded'
+            ) : (
+              'Upload Profile'
+            )}
+          </div>
+          {imagesObj?.avatar?.file && (
+            <div className={`avatar ${uploaded.avatar ? 'opacity-60' : ''}`}>
+              <div className="w-16 rounded">
+                <img src={imagesObj?.avatar?.url} alt="profile" />
+              </div>
+              <div className="absolute -right-3 -top-4 z-10 ">
+                {!uploaded.avatar && (
+                  <div
+                    className="btn btn-circle btn-xs items-center justify-center"
+                    onClick={() =>
+                      setImagesObj((prev) => ({ ...prev, avatar: null }))
+                    }
+                  >
+                    X
+                  </div>
+                )}
+              </div>
+              {uploaded.avatar && (
+                <div className="absolute left-0 top-0 h-full w-full">
+                  <FaCircleCheck className="text-lg text-lime-500" />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
         <label className="form-control w-full">
           <div className="label">
             <span className="label-text">Cover Picture</span>
           </div>
           <label>
-            <input type="file" hidden />
+            <input
+              type="file"
+              accept="image/*"
+              multiple={false}
+              name="cover"
+              onChange={handleImgChange}
+              hidden
+            />
             <div className="tooltip tooltip-right" data-tip="Add cover picture">
               <FcAddImage className="cursor-pointer text-4xl" />
             </div>
           </label>
           <ErrorMessage error={errors.cover} />
         </label>
+        <div className="flex items-center gap-2">
+          <div
+            className={`btn w-max ${
+              uploading || uploaded.cover ? 'btn-disabled' : ''
+            }`}
+            onClick={handleCover}
+          >
+            {uploading ? (
+              <div className="loading"></div>
+            ) : uploaded.cover ? (
+              'Uploaded'
+            ) : (
+              'Upload Cover'
+            )}
+          </div>
+          {imagesObj?.cover?.file && (
+            <div className={`avatar ${uploaded.cover ? 'opacity-60' : ''}`}>
+              <div className="w-16 rounded">
+                <img src={imagesObj?.cover?.url} alt="profile" />
+              </div>
+              <div className="absolute -right-3 -top-4 z-10 ">
+                {!uploaded.cover && (
+                  <div
+                    className="btn btn-circle btn-xs items-center justify-center"
+                    onClick={() =>
+                      setImagesObj((prev) => ({ ...prev, cover: null }))
+                    }
+                  >
+                    X
+                  </div>
+                )}
+              </div>
+              {uploaded.cover && (
+                <div className="absolute left-0 top-0 h-full w-full">
+                  <FaCircleCheck className="text-lg text-lime-500" />
+                </div>
+              )}
+            </div>
+          )}
+        </div>
         <label className="form-control w-full">
           <div className="label">
             <span className="label-text">First Name</span>

@@ -20,7 +20,10 @@ export default function Profile({ user }) {
       <div className="w-full rounded-md">
         <div className="relative h-52 w-full rounded-t-md">
           <img
-            src={user.cover}
+            src={
+              user.cover ||
+              'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+            }
             alt=""
             className="absolute left-0 top-0 h-full w-full rounded-t-md object-cover"
           />
@@ -64,7 +67,7 @@ export default function Profile({ user }) {
           </div>
         </div>
       </div>
-      <div className="md:hidden mt-2">
+      <div className="mt-2 md:hidden">
         <UserInfoCard />
         <UserMediaCard />
       </div>
