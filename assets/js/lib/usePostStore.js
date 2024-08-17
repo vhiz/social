@@ -16,6 +16,7 @@ const usePostStore = create((set) => ({
             (like) => like.user === currentUser.id
           ),
           likes: post.likes.map((like) => like.user),
+          commentsCount: post.comments.length,
         })),
         currentUserId: currentUser.id,
         loading: false,
@@ -93,6 +94,20 @@ const usePostStore = create((set) => ({
         ),
       }))
     }
+  },
+  addPostCommentCount: (postId) => {
+    console.log(postId)
+    set((prev) => ({
+      ...prev,
+      posts: prev.posts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              commentsCount: post.commentsCount + 1,
+            }
+          : post
+      ),
+    }))
   },
 }))
 

@@ -105,7 +105,9 @@ export default function Post({ post }) {
             >
               <BiCommentDetail />
             </div>
-            {post.comments.length}
+            <span className="countdown">
+              <span style={{ '--value': post.commentsCount }}></span>
+            </span>
           </div>
           {/* <div className="flex items-center">
             <div className="btn btn-circle btn-ghost btn-sm">
@@ -117,7 +119,7 @@ export default function Post({ post }) {
       </div>
       {openComments && <div className="divider" />}
       {/* comment */}
-      {openComments && <Comments />}
+      {openComments && <Comments postId={post.id} />}
     </div>
   )
 }

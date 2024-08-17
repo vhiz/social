@@ -43,6 +43,11 @@ module.exports.routes = {
   'GET /post': 'posts/get-posts',
   'POST /post/like': 'posts/like-post',
 
+  //comment
+  'POST /comment': 'comments/add-comment',
+  'PUT /comment/:commentId': 'comments/like-comment',
+  'GET /comment/:postId': 'comments/get-comments',
+
   //settings
   'GET /setting': 'setting/index',
 }

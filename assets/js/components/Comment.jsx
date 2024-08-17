@@ -1,43 +1,82 @@
-import { useState } from 'react'
+import { usePage } from '@inertiajs/react'
+import axios from 'axios'
+import toast from 'react-hot-toast'
 import { BiCommentDetail, BiLike, BiSolidLike } from 'react-icons/bi'
 import { CiShare2 } from 'react-icons/ci'
 import { PiDotsThree } from 'react-icons/pi'
 import { RiDeleteBin6Line } from 'react-icons/ri'
 
-export default function Comment({ img }) {
-  const [like, setLike] = useState(false)
+export default function Comment({ comment, setComments }) {
+  const { currentUser } = usePage().props
 
+  async function likePost() {
+    setComments((prev) => [
+      ...prev.map((comments) =>
+        comments.id === comment.id
+          ? {
+              ...comments,
+              isLikedByUser: !comments.isLikedByUser,
+              likes: comments.likes.includes(currentUser.id)
+                ? comments.likes.filter((like) => like !== currentUser.id)
+                : [...comments.likes, currentUser.id],
+            }
+          : comments
+      ),
+    ])
+    try {
+      await axios.put(`/comment/${comment.id}`)
+    } catch (error) {
+      toast.error('Something went wrong')
+      setComments((prev) => [
+        ...prev.map((comments) =>
+          comments.id === comment.id
+            ? {
+                ...comments,
+                isLikedByUser: !comments.isLikedByUser,
+                likes: comments.likes.includes(currentUser.id)
+                  ? comments.likes.filter((like) => like !== currentUser.id)
+                  : [...comments.likes, currentUser.id],
+              }
+            : comments
+        ),
+      ])
+    }
+  }
   return (
     <>
       <div className="flex w-full items-start gap-2">
         <div className="avatar">
           <div className="w-8 rounded-full">
-            <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+            <img
+              src={
+                comment.user.avatar ||
+                `https://avatar.iran.liara.run/username?username=${comment.user.username}`
+              }
+            />
           </div>
         </div>
         <div className="w-full text-sm">
-          <span className="text-xs">Benjamin Moore</span>
-          <div className="prose mt-1">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis
-            doloremque, impedit nemo at perspiciatis sunt quae praesentium
-            aliquam labore a amet voluptate eum, mollitia nam unde. Dolorem
-            accusantium eius hic.
-          </div>
-          {img && (
+          <span className="text-xs">
+            {comment.user.firstName && comment.user.lastName
+              ? `${comment.user.firstName} ${comment.user.lastName}`
+              : comment.user.username}
+          </span>
+          <div className="prose mt-1">{comment.desc}</div>
+          {comment.img && (
             <div className="avatar mt-3 w-full">
               <div className="max-h-72 w-full rounded">
-                <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                <img src={comment.img} />
               </div>
             </div>
           )}
 
-          <div className="mt-3 flex items-center gap-2 md:gap-5">
+          <div className="mt-3 flex gap-2 md:gap-5">
             <div className="flex items-center">
               <label className="btn btn-circle btn-ghost swap btn-sm">
                 <input
                   type="checkbox"
-                  checked={like}
-                  onChange={(e) => setLike(e.target.checked)}
+                  checked={comment.isLikedByUser}
+                  onChange={(e) => likePost()}
                 />
                 <div className="swap-on">
                   <BiSolidLike className="text-red-700" />
@@ -46,20 +85,23 @@ export default function Comment({ img }) {
                   <BiLike />
                 </div>
               </label>
-              <div className="divider divider-horizontal hidden md:flex" /> 122
+              <div className="divider divider-horizontal hidden md:flex" />
+              <span className="countdown">
+                <span style={{ '--value': comment.likes.length }}></span>
+              </span>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <div className="btn btn-circle btn-ghost btn-sm">
                 <BiCommentDetail />
               </div>
               <div className="divider divider-horizontal hidden md:flex" /> 122
-            </div>
-            <div className="flex items-center">
+            </div> */}
+            {/* <div className="flex items-center">
               <div className="btn btn-circle btn-ghost btn-sm">
                 <CiShare2 />
               </div>
               <div className="divider divider-horizontal hidden md:flex" /> 122
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="">

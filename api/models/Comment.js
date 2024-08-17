@@ -14,6 +14,9 @@ module.exports = {
     user: {
       model: 'user',
     },
+    img: {
+      type: 'string',
+    },
     post: {
       model: 'post',
     },
