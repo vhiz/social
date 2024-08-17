@@ -33,7 +33,10 @@ module.exports = {
         'followers'
       )
 
-      const userPosts = await Post.find({ user: user.id }).populate('user')
+      const userPosts = await Post.find({ user: user.id })
+        .populate('user')
+        .populate('comments')
+        .populate('likes')
       const followings = user.followers.map((follower) => follower.following)
 
       const followingWithPost = await Promise.all(

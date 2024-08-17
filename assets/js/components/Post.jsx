@@ -8,15 +8,19 @@ import { useState } from 'react'
 import Comments from './Comments'
 import moment from 'moment/moment'
 import { Link } from '@inertiajs/react'
+import usePostStore from '../lib/usePostStore'
 export default function Post({ post }) {
-  const [like, setLike] = useState(false)
   const [openComments, setOpenComments] = useState(false)
-  console.log(post)
+  const { likePost } = usePostStore()
+
   return (
     <div className="w-full rounded-md p-2 shadow-md">
       {/* //user */}
       <div className="flex">
-        <Link href={`/profile/${post.user.username}`} className="flex flex-1 items-center gap-4">
+        <Link
+          href={`/profile/${post.user.username}`}
+          className="flex flex-1 items-center gap-4"
+        >
           <div className={`avatar ${post.user.avatar ? '' : 'placeholder'}`}>
             {post.user.avatar ? (
               <div className="w-10 rounded-full ring ring-accent ring-offset-2 ring-offset-base-100">
@@ -32,9 +36,9 @@ export default function Post({ post }) {
           </div>
           <div className="flex flex-col">
             <span>{`${post.user.firstName} ${post.user.lastName} `}</span>
-            <time datetime="" className="text-xs opacity-60">
+            <span className="text-xs opacity-60">
               {moment(post.createdAt).fromNow()}
-            </time>
+            </span>
           </div>
         </Link>
         <div className="flex-none">
@@ -76,12 +80,12 @@ export default function Post({ post }) {
           </div>
         )}
         <div className="mt-3 flex items-center gap-2 md:gap-5">
-          <div className="flex items-center">
-            <label className="btn btn-circle btn-ghost swap btn-sm">
+          <div className="flex items-center gap-2">
+            <label className="btn btn-circle btn-ghost swap swap-rotate btn-sm">
               <input
                 type="checkbox"
-                checked={like}
-                onChange={(e) => setLike(e.target.checked)}
+                checked={post.isLikedByCurrentUser}
+                onChange={(e) => likePost(post.id)}
               />
               <div className="swap-on">
                 <BiSolidLike className="text-red-700" />
@@ -90,17 +94,18 @@ export default function Post({ post }) {
                 <BiLike />
               </div>
             </label>
-            <div className="divider divider-horizontal hidden md:flex" /> {post.likes.length}
+            <span className="countdown">
+              <span style={{ '--value': post.likes.length }}></span>
+            </span>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <div
               onClick={() => setOpenComments((prev) => !prev)}
               className="btn btn-circle btn-ghost btn-sm"
             >
               <BiCommentDetail />
             </div>
-            <div className="divider divider-horizontal hidden md:flex" />
-             {post.comments.length}
+            {post.comments.length}
           </div>
           {/* <div className="flex items-center">
             <div className="btn btn-circle btn-ghost btn-sm">

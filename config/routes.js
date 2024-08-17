@@ -41,6 +41,7 @@ module.exports.routes = {
   //posts
   'POST /post': 'posts/add-post',
   'GET /post': 'posts/get-posts',
+  'POST /post/like': 'posts/like-post',
 
   //settings
   'GET /setting': 'setting/index',
