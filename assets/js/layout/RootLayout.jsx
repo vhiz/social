@@ -7,6 +7,8 @@ import { Toaster } from 'react-hot-toast'
 import FriendRequestModal from '../components/FriendRequestModal'
 import UpdateUserModal from '../components/UpdateUserModal'
 import AddStoryModal from '../components/AddStoryModal'
+import StoriesModal from '../components/StoriesModal'
+import 'swiper/css'
 
 export default function RootLayout({ children, header }) {
   return (
@@ -30,6 +32,7 @@ export default function RootLayout({ children, header }) {
       <FriendRequestModal />
       <UpdateUserModal />
       <AddStoryModal />
+      <StoriesModal />
     </div>
   )
 }

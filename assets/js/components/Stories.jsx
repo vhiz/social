@@ -1,10 +1,11 @@
 import { usePage } from '@inertiajs/react'
 import { PiPlusCircleFill } from 'react-icons/pi'
-import 'swiper/css'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import useStoryStore from '../lib/storyStore'
 
 export default function Stories() {
   const { stories, currentUser } = usePage().props
+  const { setStories } = useStoryStore()
   const groupedData = stories.reduce((acc, story) => {
     const existingUser = acc.find((user) => user.id === story.user.id)
 
@@ -27,7 +28,6 @@ export default function Stories() {
 
     return acc
   }, [])
-
 
   return (
     <div className="flex overflow-x-scroll rounded-lg p-4 text-xs shadow-xl scrollbar-none">
@@ -83,7 +83,13 @@ export default function Stories() {
           .sort((a, b) => b.createdAt - a.createdAt)
           .map((story) => (
             <SwiperSlide key={story.id}>
-              <div className="flex cursor-pointer flex-col items-center gap-2">
+              <div
+                className="flex cursor-pointer flex-col items-center gap-2"
+                onClick={() => {
+                  setStories(story)
+                  document.getElementById('storiesModal').showModal()
+                }}
+              >
                 <div className="avatar">
                   <div className="w-16 rounded-full ring ring-primary ring-offset-1 ring-offset-base-100">
                     <img src={story.stories[0].img} />
