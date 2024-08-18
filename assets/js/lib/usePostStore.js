@@ -96,7 +96,6 @@ const usePostStore = create((set) => ({
     }
   },
   addPostCommentCount: (postId) => {
-    console.log(postId)
     set((prev) => ({
       ...prev,
       posts: prev.posts.map((post) =>
@@ -108,6 +107,19 @@ const usePostStore = create((set) => ({
           : post
       ),
     }))
+  },
+
+  deletePost: async (postId, toast) => {
+    set((prev) => ({
+      ...prev,
+      posts: prev.posts.filter((post) => post.id !== postId),
+    }))
+    try {
+      await axios.delete(`/post/${postId}`)
+    } catch (error) {
+      console.log(error)
+      toast.error('Something went wrong')
+    }
   },
 }))
 

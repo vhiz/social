@@ -7,11 +7,13 @@ import { CiShare2 } from 'react-icons/ci'
 import { useState } from 'react'
 import Comments from './Comments'
 import moment from 'moment/moment'
-import { Link } from '@inertiajs/react'
+import { Link, usePage } from '@inertiajs/react'
 import usePostStore from '../lib/usePostStore'
+import toast from 'react-hot-toast'
 export default function Post({ post }) {
   const [openComments, setOpenComments] = useState(false)
-  const { likePost } = usePostStore()
+  const { likePost, deletePost } = usePostStore()
+  const { currentUser } = usePage().props
 
   return (
     <div className="w-full rounded-md p-2 shadow-md">
@@ -41,31 +43,36 @@ export default function Post({ post }) {
             </span>
           </div>
         </Link>
-        <div className="flex-none">
-          <div className="dropdown dropdown-end">
-            <div
-              tabIndex={1}
-              role="button"
-              className="btn btn-circle btn-ghost btn-sm"
-            >
-              <PiDotsThree />
+        {post.user.id === currentUser.id && (
+          <div className="flex-none">
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={1}
+                role="button"
+                className="btn btn-circle btn-ghost btn-sm"
+              >
+                <PiDotsThree />
+              </div>
+              <ul
+                tabIndex={1}
+                className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+              >
+                <li>
+                  <a>Edit</a>
+                </li>
+                <li>
+                  <a
+                    onClick={() => deletePost(post.id, toast)}
+                    className="justify-between text-error"
+                  >
+                    Delete
+                    <RiDeleteBin6Line />
+                  </a>
+                </li>
+              </ul>
             </div>
-            <ul
-              tabIndex={1}
-              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
-            >
-              <li>
-                <a>Edit</a>
-              </li>
-              <li>
-                <a className="justify-between text-error">
-                  Delete
-                  <RiDeleteBin6Line />
-                </a>
-              </li>
-            </ul>
           </div>
-        </div>
+        )}
       </div>
       {/* //Post */}
       <div className="mt-3">

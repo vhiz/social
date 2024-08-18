@@ -42,6 +42,7 @@ module.exports.routes = {
   'POST /post': 'posts/add-post',
   'GET /post': 'posts/get-posts',
   'POST /post/like': 'posts/like-post',
+  'DELETE /post/:postId': 'posts/delete-post',
 
   //comment
   'POST /comment': 'comments/add-comment',
@@ -50,4 +51,7 @@ module.exports.routes = {
 
   //settings
   'GET /setting': 'setting/index',
+
+  //story
+  'POST /story': 'story/add-stories',
 }

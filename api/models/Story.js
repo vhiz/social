@@ -17,5 +17,8 @@ module.exports = {
     img: {
       type: 'string',
     },
+    desc: {
+      type: 'string',
+    },
   },
 }

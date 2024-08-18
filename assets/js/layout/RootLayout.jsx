@@ -6,6 +6,7 @@ import RightBar from '../components/RightBar'
 import { Toaster } from 'react-hot-toast'
 import FriendRequestModal from '../components/FriendRequestModal'
 import UpdateUserModal from '../components/UpdateUserModal'
+import AddStoryModal from '../components/AddStoryModal'
 
 export default function RootLayout({ children, header }) {
   return (
@@ -28,6 +29,7 @@ export default function RootLayout({ children, header }) {
       <Toaster />
       <FriendRequestModal />
       <UpdateUserModal />
+      <AddStoryModal />
     </div>
   )
 }

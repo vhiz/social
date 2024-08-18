@@ -24,4 +24,5 @@ module.exports.policies = {
   'user/*': 'is-auth',
   'posts/*': 'is-auth',
   'comments/*': 'is-auth',
+  'story/*': 'is-auth',
 }
