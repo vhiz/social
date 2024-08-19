@@ -4,7 +4,7 @@ export default function Ad() {
       <span className="opacity-70">sponsored</span>
       <div className="avatar mt-3 w-full">
         <div className="max-h-28 w-full rounded">
-          <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          <img src="https://images.unsplash.com/photo-1568667185695-edcbcd4938cb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxM3x8fGVufDB8fHx8fA%3D%3D" />
         </div>
       </div>
       <div className="prose text-xs opacity-80">

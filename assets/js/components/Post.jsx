@@ -18,10 +18,10 @@ export default function Post({ post }) {
   return (
     <div className="w-full rounded-md p-2 shadow-md">
       {/* //user */}
-      <div className="flex">
+      <div className="flex justify-between">
         <Link
           href={`/profile/${post.user.username}`}
-          className="flex flex-1 items-center gap-4"
+          className="flex items-center gap-4"
         >
           <div className={`avatar ${post.user.avatar ? '' : 'placeholder'}`}>
             {post.user.avatar ? (
@@ -44,7 +44,7 @@ export default function Post({ post }) {
           </div>
         </Link>
         {post.user.id === currentUser.id && (
-          <div className="flex-none">
+          <div className="">
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={1}
@@ -75,7 +75,7 @@ export default function Post({ post }) {
         )}
       </div>
       {/* //Post */}
-      <div className="mt-3">
+      <Link href={`/post/${post.id}`} className="mt-3">
         <div className="prose text-sm">
           <p>{post?.desc}</p>
         </div>
@@ -123,7 +123,7 @@ export default function Post({ post }) {
             <div className="divider divider-horizontal hidden md:flex" /> 122
           </div> */}
         </div>
-      </div>
+      </Link>
       {openComments && <div className="divider" />}
       {/* comment */}
       {openComments && <Comments postId={post.id} />}

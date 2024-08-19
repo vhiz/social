@@ -32,23 +32,13 @@ module.exports = {
       let user = await User.findOne({ id: this.req.session.userId }).populate(
         'followers'
       )
-
-      const userPosts = await Post.find({ user: user.id })
+      const followings = user.followers.map((follower) => follower.following)
+      const posts = await Post.find({ user: { in: [...followings, user.id] } })
         .populate('user')
         .populate('comments')
         .populate('likes')
-      const followings = user.followers.map((follower) => follower.following)
 
-      const followingWithPost = await Promise.all(
-        followings.map(async (following) => {
-          const posts = await Post.find({ user: following })
-            .populate('user')
-            .populate('comments')
-            .populate('likes')
-          return posts
-        })
-      )
-      return userPosts.concat(followingWithPost.flat())
+      return posts
     }
   },
 }
