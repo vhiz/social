@@ -1,29 +1,30 @@
-import { useEffect, useState } from "react";
-import { GoMoon, GoSun } from "react-icons/go";
+import { useEffect, useState } from 'react'
+import { GoMoon, GoSun } from 'react-icons/go'
 
 export default function Toggle() {
-  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
 
-  const [isDark, setIsDark] = useState(
-    JSON.parse(localStorage.getItem("isDark")) || mediaQuery.matches
-      ? "dim"
-      : "wireframe"
-  );
+  const [isDark, setIsDark] = useState(() => {
+    const savedTheme = localStorage.getItem('isDark')
+    if (savedTheme) {
+      return JSON.parse(savedTheme)
+    } else {
+      return mediaQuery.matches ? 'dim' : 'wireframe'
+    }
+  })
 
   useEffect(() => {
-    localStorage.setItem("isDark", JSON.stringify(isDark));
-  }, [isDark]);
+    localStorage.setItem('isDark', JSON.stringify(isDark))
+  }, [isDark])
 
   return (
-    <label className="swap swap-rotate text-2xl mx-2 btn btn-sm btn-circle btn-ghost">
+    <label className="btn btn-circle btn-ghost swap swap-rotate btn-sm mx-2 text-2xl">
       <input
         type="checkbox"
         className="theme-controller"
         value="dim"
-        checked={isDark === "dim"}
-        onChange={() =>
-          setIsDark(isDark === "dim" ? "wireframe" : "dim")
-        }
+        checked={isDark === 'dim'}
+        onChange={() => setIsDark(isDark === 'dim' ? 'wireframe' : 'dim')}
       />
 
       {/* sun icon */}
@@ -32,5 +33,5 @@ export default function Toggle() {
       {/* moon icon */}
       <GoMoon className="swap-on fill-current text-sm" />
     </label>
-  );
+  )
 }

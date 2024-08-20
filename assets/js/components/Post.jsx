@@ -75,7 +75,7 @@ export default function Post({ post }) {
         )}
       </div>
       {/* //Post */}
-      <Link href={`/post/${post.id}`} className="mt-3">
+      <div className="mt-3">
         <div className="prose text-sm">
           <p>{post?.desc}</p>
         </div>
@@ -123,7 +123,7 @@ export default function Post({ post }) {
             <div className="divider divider-horizontal hidden md:flex" /> 122
           </div> */}
         </div>
-      </Link>
+      </div>
       {openComments && <div className="divider" />}
       {/* comment */}
       {openComments && <Comments postId={post.id} />}

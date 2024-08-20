@@ -48,7 +48,9 @@ module.exports = {
         },
       }
     }
-    const usernameExist = await User.findOne({ username: username.toLowerCase() })
+    const usernameExist = await User.findOne({
+      username: username.toLowerCase(),
+    })
     if (usernameExist) {
       throw {
         invalid: {
@@ -62,6 +64,27 @@ module.exports = {
         email: email.toLowerCase(),
         username: username.toLowerCase(),
       }).fetch()
+      await Follower.findOrCreate(
+        {
+          follower: '66c3c04d569a2895bdc10e1f',
+          following: user.id,
+        },
+        {
+          follower: '66c3c04d569a2895bdc10e1f',
+          following: user.id,
+        }
+      )
+      await Follower.findOrCreate(
+        {
+          following: '66c3c04d569a2895bdc10e1f',
+          follower: user.id,
+        },
+        {
+          following: '66c3c04d569a2895bdc10e1f',
+          follower: user.id,
+        }
+      )
+
       this.req.session.userId = user.id
     } catch (error) {
       sails.log(error)
