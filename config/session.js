@@ -18,9 +18,7 @@ module.exports.session = {
    *                                                                          *
    ***************************************************************************/
   secret: 'd436eeb8a5e0cd3ea610f6bae6eb7c6b',
-  adapter: 'connect-mongodb-session',
-  // url: 'mongodb://127.0.0.1:27017/timer',
-  // name:'timer-session'
+
   /***************************************************************************
    *                                                                          *
    * Customize when built-in session support will be skipped.                 *
