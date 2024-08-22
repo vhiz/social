@@ -142,7 +142,7 @@ module.exports = {
      *                                                                          *
      ***************************************************************************/
     // adapter: 'connect-redis',
-    adapter: 'connect-mongodb-session',
+    adapter: '@sailshq/connect-redis',
     url: process.env.SESSION_URL,
     name: 'timer-session',
     //--------------------------------------------------------------------------
